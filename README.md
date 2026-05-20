@@ -155,7 +155,6 @@ Pencocokan skill SKKNI dengan kebutuhan industri dilakukan menggunakan **overlap
 
 ---
 
----
 ##Link Hasil Deployment ke Streamlit Cloud
 
 ## Tim
