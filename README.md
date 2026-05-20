@@ -36,8 +36,8 @@ Perbandingan langsung antara kompetensi standar SKKNI dengan skill yang diminta 
 
 | Dataset | File | Sumber | Keterangan |
 |---|---|---|---|
-| SKKNI | `5_data_pekerjaan.csv` | Website SKKNI (scraping) | 321 baris, 5 kolom, 5 jabatan |
-| Lowongan Kerja | `cleaned_job_5.csv` | JobStreet Indonesia (via GitHub) | 2.516 baris, 18 kolom |
+| SKKNI | `5_data_pekerjaan.csv` | Website SKKNI| 321 baris, 5 kolom, 5 jabatan |
+| Lowongan Kerja | `cleaned_job_5.csv` | JobStreet Indonesia| 2.516 baris, 18 kolom |
 
 ### Kolom Dataset SKKNI (`5_data_pekerjaan.csv`)
 
@@ -80,23 +80,17 @@ Perbandingan langsung antara kompetensi standar SKKNI dengan skill yang diminta 
 
 ### Prasyarat
 
-- Python 3.8 atau lebih baru
+- Python 
 - pip
 
 ### Langkah Instalasi
 
-1. Clone repositori ini:
-```bash
-git clone https://github.com/username/skillbridge-dashboard1.git
-cd skillbridge-dashboard
-```
-
-2. Install dependensi:
+1. Install dependensi:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Pastikan kedua file dataset berada di folder yang sama dengan `dashboard.py`:
+2. Pastikan kedua file dataset berada di folder yang sama dengan `dashboard.py`:
 ```
 skillbridge-dashboard/
 ├── dashboard.py
@@ -106,21 +100,9 @@ skillbridge-dashboard/
 └── README.md
 ```
 
-4. Jalankan dashboard:
+3. Jalankan dashboard:
 ```bash
-streamlit run dashboard1.py
-```
-
-## Requirements
-
-Buat file `requirements.txt` dengan isi berikut:
-
-```
-streamlit
-pandas
-matplotlib
-seaborn
-streamlit-autorefresh
+streamlit run dashboard.py
 ```
 
 ---
