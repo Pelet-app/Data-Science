@@ -224,11 +224,11 @@ if menu == "Unit Kompetensi SKKNI":
 
     with col1:
         fig, ax = plt.subplots(figsize=(8, 5))
-        colors = sns.color_palette("Blues_d", len(unit_per_job))
-        unit_top = unit_per_job.head(top_n)
+        colors = sns.color_palette("Blues_d", len(unit_top))
+
         bars = ax.barh(
-            unit_per_job["Jabatan"],
-            unit_per_job["Total Unit"],
+            unit_top["Jabatan"],
+            unit_top["Total Unit"],
             color=colors
         )
         ax.bar_label(bars, fmt="%d unit", padding=5, fontsize=11, fontweight="bold")
