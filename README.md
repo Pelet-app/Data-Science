@@ -155,6 +155,9 @@ Pencocokan skill SKKNI dengan kebutuhan industri dilakukan menggunakan **overlap
 
 ---
 
+---
+##Link Hasil Deployment ke Streamlit Cloud
+
 ## Tim
 
 Proyek ini dikembangkan sebagai bagian dari tugas Data Science - SkillBridge AI.
