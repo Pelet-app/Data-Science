@@ -52,8 +52,8 @@ Data dikumpulkan dari berbagai sumber, **tidak menggunakan dataset siap pakai ta
 
 | Dataset | Sumber | Metode Pengumpulan | File |
 |---|---|---|---|
-| SKKNI | Website resmi SKKNI | Web scraping manual | `5_data_pekerjaan.csv` |
-| Lowongan Kerja Indonesia | JobStreet via GitHub | Download dataset publik + filter manual | `cleaned_job_5.csv` |
+| SKKNI | Website resmi SKKNI | Web scraping manual + filter + cleaning manual | `5_data_pekerjaan.csv` |
+| Lowongan Kerja Indonesia | JobStreet via GitHub | Download dataset publik + filter manual + cleaning manual | `cleaned_job_5.csv` |
 | Data Training Model | Kaggle | Download dataset publik + cleaning manual | `training dataset` |
 
 ### 3.2 Assessing Data
