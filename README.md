@@ -275,18 +275,21 @@ Isi laporan mencakup:
 ```
 capstone_project/
 │
-├── data/
+├── data_skkni/
 │   ├── 5_data_pekerjaan.csv           # Dataset SKKNI (321 baris, 5 jabatan)
 │   ├── cleaned_job_5.csv              # Dataset lowongan kerja Indonesia (2.516 baris)
-│   └── dataset training               # Dataset training model (sudah di-cleaning)
+|   └── data_pekerjaan                 # Dataset skkni (sudah di-cleaning)
 │
 ├── dashboard/
 │   └── dashboard.py                   # Dashboard Streamlit (4 halaman)
 │
-├── ab_testing/
+├── AB_Testing/
 │   ├── ab_testing.py                  # Script A/B Testing Python
 │   ├── AB_testing.png                 # Visualisasi hasil eksperimen
 │   └── README.md                      # Dokumentasi A/B Testing
+|
+|── data_training
+|   └── dataset training               # Dataset training model (sudah di-cleaning)
 │
 ├── laporan/
 │   └── Laporan_Teknis_SkillBridge_AI.pdf  # Laporan teknis PDF
@@ -311,7 +314,7 @@ streamlit run dashboard/dashboard.py
 
 ### Jalankan A/B Testing
 ```bash
-python ab_testing/ab_testing.py
+python AB_Testing/ab_testing.py
 ```
 
 ### Isi `requirements.txt`
