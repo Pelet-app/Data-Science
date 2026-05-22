@@ -36,11 +36,11 @@ Membangun sistem rekomendasi pekerjaan berbasis AI (**SkillBridge AI**) yang:
 
 Pertanyaan bisnis didefinisikan secara terukur untuk memandu seluruh proses analisis:
 
-| Pertanyaan Bisnis | Dataset | Metrik |
+| No | Pertanyaan Bisnis | Dataset | Metrik |
 |---|---|---|---|
-| Berapa jumlah unit kompetensi masing-masing jabatan di SKKNI? Job mana yang paling kompleks? | SKKNI | Jumlah unit kompetensi unik per jabatan |
-| Skill apa yang paling sering diminta perusahaan di Indonesia saat ini? | JobStreet Indonesia | Frekuensi kemunculan skill di lowongan kerja |
-| Seberapa besar kesenjangan antara kompetensi standar SKKNI dengan kebutuhan industri nyata? | Gabungan | % skill SKKNI yang relevan dengan industri |
+| 1 | Berapa jumlah unit kompetensi masing-masing jabatan di SKKNI? Job mana yang paling kompleks? | SKKNI | Jumlah unit kompetensi unik per jabatan |
+| 2 | Skill apa yang paling sering diminta perusahaan di Indonesia saat ini? | JobStreet Indonesia | Frekuensi kemunculan skill di lowongan kerja |
+| 3 | Seberapa besar kesenjangan antara kompetensi standar SKKNI dengan kebutuhan industri nyata? | Gabungan | % skill SKKNI yang relevan dengan industri |
 
 ---
 
