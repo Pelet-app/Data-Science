@@ -209,7 +209,7 @@ Dashboard interaktif untuk menampilkan insight dan kesimpulan dari seluruh anali
 ### Deployment
 Dashboard sudah di-deploy ke Streamlit Cloud dan dapat diakses secara publik:
 
-🔗 **[SkillBridge AI Dashboard](#)** ← ganti dengan URL Streamlit Cloud
+link : https://latihan-mutand2svg2mzyvqypsmgc.streamlit.app/
 
 ### Cara Menjalankan Lokal
 ```bash
@@ -238,7 +238,7 @@ Eksperimen untuk membuktikan secara statistik metode matching mana yang lebih ak
 | Mean Score | 0.0371 | **0.0656** |
 | Match Rate | 30.0% | **51.0%** |
 | Peningkatan | — | **+77%** |
-| p-value | — | **0.000194 ✅** |
+| p-value | — | **0.000194** |
 | Effect Size (Cohen's d) | — | 0.4842 (medium) |
 
 
@@ -247,9 +247,9 @@ Tolak H0. Semantic Matching secara statistik **lebih baik** dari Keyword Matchin
 
 ### Cara Menjalankan
 ```bash
-python ab_testing/ab_testing.py
+python AB_Testing/ab_testing.py
 ```
-
+![Hasil A/B Testing](AB_Testing/AB_testing.png)
 ---
 
 ## 9. Laporan Teknis
