@@ -1,8 +1,4 @@
 streamlit
-streamlit-autorefresh
 pandas
 numpy
-matplotlib
-seaborn
-scikit-learn
-scipy
+plotly
