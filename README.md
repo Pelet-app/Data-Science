@@ -234,17 +234,17 @@ capstone_project/
 capstone_project/
 │
 ├── dataset/
-│   ├── cleaned_job_5.csv             # Dataset lowongan kerja Indonesia (2.516 baris)
+│   ├── cleaned_job_5.csv              # Dataset lowongan kerja Indonesia (2.516 baris)
 │   ├── cleaned_training_data.csv      # Dataset profil resume pelamar kerja (10.000 baris)
-│   ├── skill_mapping_dictionary.csv  # Kamus status kecocokan skill internasional vs SKKNI
-│   └── skkni_reference_clean.csv     # Referensi unit kompetensi resmi SKKNI (662 baris)
+│   ├── skill_mapping_dictionary.csv   # Kamus status kecocokan skill internasional vs SKKNI
+│   └── skkni_reference_clean.csv      # Referensi unit kompetensi resmi SKKNI (662 baris)
 │
-├── data_loader.py                    # Script caching data, cleaning, dan preprocessing pandas
-└── dashboard.py                      # File utama aplikasi dashboard web Streamlit
+├── dashboard/
+│   ├── data_loader.py                 # Script caching data, cleaning, dan preprocessing pandas
+└── |── dashboard.py                   # File utama aplikasi dashboard web Streamlit
 │
 ├── ab_tetsing                         # 
 └── pdf                                # 
-│
 ├── requirements.txt                   # Dependensi Python
 └── README.md                          # Dokumentasi utama (file ini)
 
