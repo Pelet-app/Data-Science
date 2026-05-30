@@ -247,15 +247,15 @@ capstone_project/
 └── pdf                                # 
 ├── requirements.txt                   # Dependensi Python
 └── README.md                          # Dokumentasi utama (file ini)
-
+```
 ---
-
-## 11. Cara Menjalankan
+### 11. Cara Menjalankan
 
 ### Install semua dependensi
 ```bash
 pip install -r requirements.txt
 ```
+---
 
 ### Jalankan Dashboard
 ```bash
