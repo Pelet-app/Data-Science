@@ -1,4 +1,4 @@
-# SkillBridge AI — Data Science
+# Pelet — Data Science
 
 ---
 
@@ -19,10 +19,17 @@
 ---
 
 ## 1. Problem Discovery
-
 ### Permasalahan
-Banyak pencari kerja di Indonesia kesulitan mengetahui jabatan mana yang paling cocok dengan skill yang mereka miliki. Di sisi lain, standar kompetensi resmi (SKKNI) belum tentu selaras dengan kebutuhan industri nyata saat ini, sehingga pelamar sulit mengukur kesiapan mereka secara objektif.
+Banyak pencari kerja di Indonesia kesulitan mengetahui jabatan mana yang paling cocok dengan kemampuan (*skill*) yang mereka miliki. Di sisi lain, standar kompetensi resmi nasional (SKKNI) bersifat kaku dan memerlukan waktu lama untuk diperbarui, sehingga belum tentu selaras secara *real-time* dengan kebutuhan industri nyata saat ini. Akibatnya, terjadi *missmatch* (ketidaksesuaian) yang tinggi antara suplai tenaga kerja dan kebutuhan pasar kerja (demand).
 
+### Solusi Utama
+Membangun sistem analisis kurikulum dan rekomendasi pekerjaan berbasis AI bernama **Pelet** yang bertugas untuk:
+- Mengagregasi profil resume pelamar kerja secara massal dan mengekstrak entitas skill-nya.
+- Memetakan kebutuhan riil lowongan pekerjaan di Indonesia berdasarkan data aggregator pasar.
+- Menghubungkan secara langsung *international skills* (kebutuhan industri) terhadap kode unit kompetensi nasional (SKKNI).
+- Mengukur persentase kecocokan kompetensi kandidat serta menampilkan visualisasi peta kesenjangan (*skill gap*) secara interaktif dalam bentuk dashboard.
+
+---
 ### Solusi Utama
 Membangun sistem rekomendasi pekerjaan berbasis AI (**SkillBridge AI**) yang:
 - Menerima CV/Resume pelamar kerja.
@@ -59,21 +66,24 @@ Data dikumpulkan dari berbagai sumber, **tidak menggunakan dataset siap pakai ta
 
 ### 3.2 Assessing Data
 
-Evaluasi kualitas dan struktur data dilakukan pada setiap dataset:
+Evaluasi kualitas, tipe data, dan integritas dilakukan secara ketat pada tahap awal:
 
 **SKKNI (`skkni_reference_clean.csv`):**
-- Terdiri dari 662 baris data unit kompetensi terstruktur.
-- Ditemukan: variasi penulisan nama jabatan yang sangat beragam (misal: 'Programmer', 'Web Developer', 'Cyber security', 'Data Analyst').
-- Ditemukan: beberapa unit kompetensi yang berulang karena memiliki elemen kompetensi yang berbeda.
+- Terdiri dari 662 baris dengan kolom `Kode Unit`, `Judul Unit`, `Elemen Kompetensi`, dan `Jabatan`.
+- Ditemukan inkonsistensi penulisan nama jabatan target (misalnya terdapat variasi teks seperti 'Cyber security' dan 'Security Eng.').
 
 **Lowongan Kerja (`cleaned_job_5.csv`):**
-- Terdiri dari 2.516 baris lowongan pekerjaan dengan 18 kolom informasi.
-- Ditemukan: Kolom `requirement` memiliki format teks tidak beraturan dengan noise karakter khsusus.
-- Ditemukan: Lokasi kerja masih berupa nama jalan/area spesifik, bukan nama kota besar.
+- Terdiri dari 2.516 baris lowongan dengan 18 kolom informasi pasar.
+- Masalah utama: Kolom `location` berisi nama alamat jalan, gedung, atau wilayah mikro yang terlalu spesifik, sehingga mustahil dikelompokkan secara langsung tanpa pembersihan makro.
+- Kolom `requirement` berisi teks tidak berstruktur dengan banyak karakter spesial (`\r`, `\n`, lambang bullet poin).
 
 **Data Resume (`cleaned_training_data.csv`):**
-- Terdiri dari 10.000 data resume pelamar kerja.
-- Ditemukan: Kolom `Skills` asli berupa gabungan teks dengan separator pipa (`|`), serta kolom `skills_clean` yang tersimpan dalam format string dari sebuah list (`"['skill1', 'skill2']"`).
+- Terdiri dari 10.000 data profil pelamar kerja.
+- Masalah utama: Kolom `skills_clean` dieksport dalam bentuk string mentah dari representasi sebuah list (format objek literal string, contoh: `"['python', 'sql']"`), sehingga tidak terbaca sebagai tipe data *Iterable List* oleh Python.
+
+**Kamus Pemetaan Skill (`skill_mapping_dictionary.csv`):**
+- Terdiri dari 114 baris relasi kompetensi internasional terhadap status nasional.
+- Ditemukan banyak nilai kosong (*Missing Values*) pada kolom `Kode_Unit_SKKNI` dan `Judul_Unit_SKKNI` khusus untuk kategori keahlian berupa *soft skills* dan alat visualisasi modern.
   
 ### 3.3 Cleaning Data
 
@@ -97,31 +107,35 @@ Seluruh proses cleaning dilakukan **secara manual dan terprogram** lewat skrip `
 
 ## 4. Exploratory Data Analysis (EDA)
 
-EDA dilakukan pada seluruh dataset utama untuk mendapatkan insight mendalam sebelum diolah ke dalam dashboard visual.
+Seluruh temuan data dianalisis secara tekstual dan dipastikan selaras dengan visualisasi pada dashboard:
 
-### Insight Dataset SKKNI & Kamus Skill
-- Jabatan teknis tingkat tinggi (seperti *Cyber Security Specialists*, *Software Architects*, *Data Scientists*) memiliki jumlah unit kompetensi yang lebih banyak dan kompleks.
-- Berdasarkan `skill_mapping_dictionary.csv`, banyak *soft skills* utama industri (seperti *leadership*, *communication*, *problem solving*, *critical thinking*) berstatus **Belum Dipetakan** ke unit kompetensi SKKNI yang spesifik karena sifat SKKNI yang cenderung berfokus pada pekerjaan *hard skills/prosedural*.
+### Analisis Sisi Regulasi (SKKNI)
+- Agregasi data pada berkas `skkni_reference_clean.csv` menunjukkan bahwa profesi di bawah rumpun teknologi canggih seperti *Software Architect*, *Cyber Security Specialists*, dan *Data Scientist* memiliki rata-rata elemen kompetensi yang jauh lebih banyak per jabatan. Standar kompetensinya berfokus penuh pada aspek prosedural teknis operasional (*hard skills*).
 
-### Insight Dataset Lowongan Kerja & Resume
-- Dari 2.516 lowongan kerja, sebaran lokasi lowongan kerja di Indonesia masih didominasi secara masif oleh wilayah DKI Jakarta dan Bandung.
-- Pada dataset resume (10.000 data), tren skill teknis seperti Python, SQL, dan JavaScript memiliki frekuensi kemunculan tertinggi pada kategori teknologi informasi.
+### Analisis Sisi Pasar (JobStreet & Resume)
+- Dari total 2.516 lowongan kerja aktif, pusat penyerapan tenaga kerja terbesar di Indonesia terkonsentrasi sangat padat di wilayah **DKI Jakarta** dan **Bandung**, dengan sistem kerja dominan berupa **Penuh Waktu (Full-time)**.
+- Dari 10.000 data profil pelamar kerja, kelompok pencari kerja terbesar didominasi oleh kelas *Fresh Graduate* (<1 tahun) dan *Junior* (1-3 tahun), mengindikasikan tingginya tingkat kompetisi di level masuk kerja (*entry-level*).
 
 ---
 
 ## 5. Visualisasi & Explanatory Analysis
 
-Visualisasi di dalam proyek ini dirancang langsung untuk menjawab seluruh pertanyaan bisnis secara komprehensif:
+Dashboard **Pelet** menjawab pertanyaan bisnis melalui sajian grafik yang interaktif:
 
-### Kompleksitas Jabatan SKKNI
-- Menampilkan grafik jumlah unit kompetensi unik per kategori jabatan kerja untuk mengidentifikasi jabatan mana yang memiliki standar kompetensi nasional paling kompleks.
+### 1. Kompleksitas Jabatan SKKNI (Menjawab Pertanyaan 1)
+- Ditampilkan dalam bentuk **Bar Chart** yang menghitung frekuensi kode unit unik per jabatan kerja. Terlihat visualisasi grafik vertikal yang menunjukkan tingkat kedalaman materi uji kompetensi pada masing-masing posisi.
 
-### Skill Demand & Analisis Tren Industri
-- Bar Chart yang menampilkan Top N Skill yang paling dicari oleh perusahaan di Indonesia berdasarkan data JobStreet.
-- Distribusi tingkat pengalaman kerja (`exp_bucket`) yang diminta pasar kerja untuk mengukur serapan tenaga kerja lulusan baru (*fresh graduate*).
+### 2. Geografis & Karakter Kontrak Pasar Kerja (Menjawab Pertanyaan 2)
+- Menggunakan **Pie Chart** interaktif untuk melihat porsi perbandingan status kerja industri (Penuh waktu, Kontrak, dll).
+- Disandingkan dengan **Bar Chart Horizontal** hasil ekstraksi lokasi kerja untuk memperlihatkan dengan jelas ketimpangan ketersediaan lapangan kerja antar wilayah di Indonesia.
 
-### Gap Analysis (SKKNI vs Industri)
-- Bar chart interaktif yang diberi kode warna tegas (*Terpetakan* = Hijau, *Parsial* = Kuning, *Belum Dipetakan* = Merah) untuk menunjukkan skill populer apa saja di industri saat ini yang belum diakomodasi secara eksplisit di dalam dokumen unit kompetensi SKKNI.
+### 3. Distribusi Kesiapan Suplai Tenaga Kerja (Menjawab Pertanyaan 3)
+- Menampilkan grafik distribusi kategorikal dari kolom fitur `exp_bucket`. Analisis ini membantu industri memetakan apakah stok pelamar kerja yang tersedia di pasar saat ini sesuai dengan kualifikasi pengalaman kerja yang dicari.
+
+### 4. Analisis Kesenjangan / Skill Gap (Menjawab Pertanyaan 4)
+- Berupa **Bar Chart Top 30 Skills** paling dicari di industri yang dilengkapi dengan penanda warna (*Color-coded*) berbasis data status `Kecocokan` dari kamus pemetaan skill.
+- **Warna Hijau (Terpetakan):** Keahlian teknis inti seperti *Python*, *SQL*, *JavaScript* terbukti aman karena sudah diakomodasi dalam skema jabatan regulasi nasional.
+- **Warna Merah (Belum Dipetakan):** Menyoroti keahlian tipe *soft skills* krusial (seperti *communication*, *leadership*, *problem solving*) serta teknologi mutakhir (*Figma*, *Git*) yang permintaannya sangat tinggi di lowongan kerja nyata namun belum tercatat secara eksplisit di dalam struktur dokumen unit kompetensi SKKNI.
 
 ---
 
@@ -166,7 +180,7 @@ Dashboard interaktif **SkillBridge AI** dikembangkan untuk menyajikan hasil anal
 ### Deployment
 Dashboard sudah di-deploy ke Streamlit Cloud dan dapat diakses secara publik pada tautan berikut:
 
-link : https://latihan-mutand2svg2mzyvqypsmgc.streamlit.app/
+link : __
 
 ### Cara Menjalankan Lokal
 ```bash
@@ -177,31 +191,7 @@ streamlit run dashboard.py
 ---
 
 ## 8. A/B Testing
-
-Eksperimen untuk membuktikan secara statistik metode matching mana yang lebih akurat dalam mencocokkan CV pelamar dengan jabatan yang tersedia.
-
-### Desain Eksperimen
-
-| | Group A | Group B |
-|---|---|---|
-| **Metode** | Keyword Matching | Semantic Matching (TF-IDF) |
-| **Cara kerja** | Overlap kata kunci CV vs profil SKKNI | Cosine similarity TF-IDF |
-| **Sampel** | 200 CV simulasi | 200 CV simulasi |
-
-### Hasil
-
-| Metrik | Group A (Keyword) | Group B (Semantic) |
-|---|---|---|
-| Mean Score | 0.0371 | **0.0656** |
-| Match Rate | 30.0% | **51.0%** |
-| Peningkatan | — | **+77%** |
-| p-value | — | **0.000194** |
-| Effect Size (Cohen's d) | — | 0.4842 (medium) |
-
-
-### Kesimpulan
-Tolak H0. Semantic Matching secara statistik **lebih baik** dari Keyword Matching (p = 0.000194 < α = 0.05). **Semantic Matching direkomendasikan sebagai metode utama SkillBridge AI.**
-
+_____belum ada____
 ### Cara Menjalankan
 ```bash
 python AB_Testing/ab_testing.py
