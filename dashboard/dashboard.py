@@ -16,7 +16,7 @@ from data_loader import (
 
 # Page config
 st.set_page_config(
-    page_title="SkillBridge AI — Skill Gap Dashboard",
+    page_title="Pelet - Dashboard",
     page_icon="",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -53,7 +53,7 @@ st.markdown("""
 
 # Sidebar navigation
 with st.sidebar:
-    st.markdown("## SkillBridge AI Dashboard")
+    st.markdown("## Pelet - Dashboard")
     st.markdown("**Skill Gap Analysis Indonesia**")
     st.markdown("---")
     page = st.radio(
@@ -78,7 +78,7 @@ df_job, df_resume, df_skkni, df_map = get_all_data()
 
 # PAGE 1 — OVERVIEW
 if page == "Overview":
-    st.title("SkillBridge A — Skill Gap Dashboard")
+    st.title("Pelet - Dashboard")
     st.markdown("Analisis kesenjangan skill tenaga kerja Indonesia terhadap standar kompetensi nasional (SKKNI)")
     st.markdown("---")
 
