@@ -87,22 +87,21 @@ Evaluasi kualitas, tipe data, dan integritas dilakukan secara ketat pada tahap a
   
 ### 3.3 Cleaning Data
 
-Seluruh proses cleaning dilakukan **secara manual** tanpa menggunakan dataset yang sudah siap pakai:
+Proses pembersihan awal dilakukan untuk memastikan kualitas data dasar berada pada standar yang siap diolah:
 
-Seluruh proses cleaning dilakukan **secara manual dan terprogram** lewat skrip `data_loader.py`:
+- **Pembersihan Noise & Karakter Spesial:** Menghilangkan karakter *break-line* (`\r`, `\n`), simbol-simbol tak standar, dan spasi ganda pada teks dokumen SKKNI serta kolom kualifikasi lowongan kerja JobStreet.
+- **Normalisasi Teks (Case Folding):** Mengubah seluruh teks kompetensi, nama skill, dan jabatan target menjadi huruf kecil (*lowercase*) seragam guna menghindari duplikasi akibat perbedaan kapitalisasi kata.
+- **Penyaringan Baris Kosong:** Membuang baris data yang tidak memiliki informasi kompetensi inti serta mengisi nilai kosong pada kolom non-kritis dengan label default `"Lainnya"`.
 
-**SKKNI (`skkni_reference_clean.csv`)**
-- Dilakukan normalisasi teks pada kolom `Jabatan` agar seragam saat difilter.
-- Standarisasi teks (case-folding) pada judul unit dan elemen kompetensi.
+### 3.4 Integrasi & Transformasi Lanjutan (`data_loader.py`)
 
-**Lowongan Kerja (`cleaned_job_5.csv`)**
-- Dilakukan ekstraksi kota menggunakan dictionary pemetaan wilayah melalui fungsi `extract_city` (misalnya mengubah kata "jakarta selatan", "dki jakarta", "jakarta raya" menjadi satu entitas seragam yaitu `"Jakarta"`).
-- Pembersihan string kosong dan pengisian nilai default `"Lainnya"` jika lokasi tidak terdeteksi.
+Guna **menggabungkan (merge) dan mengintegrasikan hubungan logis antara 4 dataset berbeda** di atas agar dapat saling terhubung dan terbaca secara dinamis oleh grafik dashboard, berkas pemrograman `data_loader.py` bertugas sebagai **Data Pipeline & Feature Engineering** melalui operasi backend berikut:
 
-**Data Resume (`cleaned_training_data.csv`)**
-- Mengekstrak kolom `skills_clean` dari format literal string kembali menjadi tipe data List aktual di Python menggunakan fungsi `ast.literal_eval`.
-- Melakukan segmentasi level pengalaman kerja pelamar (`exp_bucket`) ke dalam beberapa kategori terukur: *Fresh (<1)*, *Junior (1–3)*, *Mid (3–5)*, *Senior (5–10)*, dan *Expert (10+)* menggunakan fungsi `pd.cut`.
-  
+- **Penyelarasan Geografis Multilevel:** Menggunakan fungsi pembantu `extract_city(loc)` bersama kamus pemetaan wilayah `CITY_MAP`. Logika pemrograman ini bertugas mendeteksi variasi penulisan wilayah mikro pada data lowongan (seperti "jakarta selatan", "dki jakarta", "jakarta raya") dan menyatukannya secara otomatis ke dalam kategori kota induk yang seragam (misal: `"Jakarta"`, `"Bandung"`, `"Surabaya"`).
+- **Object Type Transformation:** Menggunakan library `ast.literal_eval` di dalam fungsi `parse_skills` untuk mengubah teks string data skill pada data resume kembali menjadi tipe data List Python asli. Tanpa transformasi tipe data lewat *pipeline* ini, program komputer tidak akan bisa menghitung statistik frekuensi kemunculan kata kunci memakai fungsi `Counter`.
+- **Kategorisasi Pengalaman (*Feature Engineering*):** Menggunakan fungsi binning `pd.cut` terhadap kolom numerik `Experience Years` pada resume pelamar untuk dikelompokkan ke dalam 5 label kategori terstruktur: `Fresh (<1)`, `Junior (1–3)`, `Mid (3–5)`, `Senior (5–10)`, dan `Expert (10+)` yang disimpan ke kolom baru bernama `exp_bucket` demi menyajikan visualisasi data yang informatif.
+- **Relasi Skill Gap Antar-Dataset:** Menghubungkan entitas kata kunci skill dari sisi *Demand* (Lowongan) dan *Supply* (Resume) terhadap status *Kecocokan* di dalam Kamus Pemetaan Skill, sehingga dashboard aplikasi **Pelet** mampu memetakan grafik kesenjangan (*skill gap*) secara *real-time*.
+
 ---
 
 ## 4. Exploratory Data Analysis (EDA)
@@ -230,7 +229,7 @@ capstone_project/
 │   └── skkni_reference_clean.csv      # Referensi unit kompetensi resmi SKKNI (662 baris)
 │
 ├── dashboard/
-│   ├── data_loader.py                 # Script caching data, cleaning, dan preprocessing pandas
+│   ├── data_loader.py                 # Modul pandas untuk penggabungan data, parsing, & pipeline
 └── |── dashboard.py                   # File utama aplikasi dashboard web Streamlit
 │
 ├── ab_tetsing                         # 
