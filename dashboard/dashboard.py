@@ -16,7 +16,7 @@ from data_loader import (
 
 # Page config
 st.set_page_config(
-    page_title="Pelet - Dashboard",
+    page_title="PELET (Pencari Lowongan Efektif & Tepat) - Dashboard",
     page_icon="",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -54,7 +54,7 @@ st.markdown("""
 # Sidebar navigation
 with st.sidebar:
     st.markdown("## Pelet - Dashboard")
-    st.markdown("**Skill Gap Analysis Indonesia**")
+    st.markdown("**AI Semantic Matching Berbasis SKKNI**")
     st.markdown("---")
     page = st.radio(
         "Navigasi",
