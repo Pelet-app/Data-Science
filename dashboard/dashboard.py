@@ -665,7 +665,7 @@ elif page == "ID SKKNI Gap Analysis":
 st.markdown("---")
 st.markdown(
     "<div style='text-align:center; color:#475569; font-size:0.8rem;'>"
-    "KOLINET Skill Gap Dashboard · Data: Glints Job Scrape + KOLINET Resume Dataset + SKKNI 2024"
+    "© 2026 Pelet.by TIM CC26-PSU060"
     "</div>",
     unsafe_allow_html=True,
 )
