@@ -303,10 +303,16 @@ Isi laporan mencakup:
 capstone_project/
 │
 ├── dataset/
-│   ├── cleaned_job_5.csv               # Dataset lowongan kerja Indonesia (2.516 baris)
-│   ├── cleaned_training_data.csv       # Dataset profil resume pelamar kerja (10.000 baris)
-│   ├── skill_mapping_dictionary.csv    # Kamus status kecocokan skill internasional vs SKKNI (114 skill)
-│   └── skkni_reference_clean.csv       # Referensi unit kompetensi resmi SKKNI (662 baris)
+│   └── clean/      
+│   │   ├── cleaned_job_5.csv               # Dataset lowongan kerja Indonesia (2.516 baris)
+│   │   ├── cleaned_training_data.csv       # Dataset profil resume pelamar kerja (10.000 baris)
+│   │   ├── skill_mapping_dictionary.csv    # Kamus status kecocokan skill internasional vs SKKNI (114 skill)
+│   │   └── skkni_reference_clean.csv       # Referensi unit kompetensi resmi SKKNI (662 baris)
+│   └── raw/
+│       ├── Data_pekerjaan.csv              # Dataset lowongan kerja Indonesia SKKNI (belum di proses)
+│       ├── jon-vacancy-dataset             # lowongan kerja Indonesia (belum di proses), tidak bisa di upload ke github dikarenakan melebihi 25mb
+│       ├──                                 # 
+│       └──                                 # 
 │
 ├── dashboard/
 │   ├── dashboard1.py                   # File utama aplikasi dashboard web Streamlit (4 halaman)
@@ -314,9 +320,11 @@ capstone_project/
 │   └── logopelet.png                   # Aset logo untuk sidebar dashboard
 │
 ├── notebooks/
-│   ├── EDA__1_.ipynb                   # Analisis eksploratif karakteristik awal data
-│   ├── Visualisasi__1_.ipynb           # Explanatory analysis & visualisasi per pertanyaan bisnis
-│   └── ab_testing__1_.ipynb            # Eksperimen komparatif TF-IDF vs Sentence-BERT
+│   ├── praprose_skkni.ipynb            # proses Wrangling dataset skkni
+│   ├── praprose_jobstreet.ipynb        # proses Wrangling dataset jobstreet
+│   ├── EDA.ipynb                       # Analisis eksploratif karakteristik awal data
+│   ├── Visualisasi.ipynb               # Explanatory analysis & visualisasi per pertanyaan bisnis
+│   └── ab_testing.ipynb                # Eksperimen komparatif TF-IDF vs Sentence-BERT
 │
 ├── Laporan.pdf                         # Laporan teknis Data Science final (PDF)
 ├── requirements.txt                    # Dependensi library Python
@@ -342,7 +350,7 @@ streamlit run dashboard/dashboard1.py
 ### Jalankan A/B Testing
 
 ```bash
-python notebooks/ab_testing__1_.ipynb
+python notebooks/ab_testing.ipynb
 ```
 
 ### Isi `requirements.txt`
