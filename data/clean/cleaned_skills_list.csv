@@ -1,0 +1,121 @@
+Skill Name,Category,clean_skill
+Python,Programming,python
+Java,Programming,java
+JavaScript,Programming,javascript
+C++,Programming,c++
+C#,Programming,c#
+Ruby,Programming,ruby
+PHP,Programming,php
+Go,Programming,go
+Rust,Programming,rust
+TypeScript,Programming,typescript
+Kotlin,Programming,kotlin
+Swift,Programming,swift
+Scala,Programming,scala
+Perl,Programming,perl
+Shell Scripting,Programming,shell scripting
+R,Programming,r
+HTML,Web Development,html
+CSS,Web Development,css
+React,Web Development,react
+Vue.js,Web Development,vue.js
+Angular,Web Development,angular
+Node.js,Web Development,node.js
+Django,Web Development,django
+Flask,Web Development,flask
+REST API,Web Development,rest api
+GraphQL,Web Development,graphql
+Responsive Design,Web Development,responsive design
+Web Accessibility,Web Development,web accessibility
+SEO,Web Development,seo
+Android,Mobile Development,android
+iOS,Mobile Development,ios
+React Native,Mobile Development,react native
+Flutter,Mobile Development,flutter
+Mobile UI/UX,Mobile Development,mobile ui/ux
+Mobile Security,Mobile Development,mobile security
+App Testing,Mobile Development,app testing
+AWS,Cloud & DevOps,aws
+Azure,Cloud & DevOps,azure
+GCP,Cloud & DevOps,gcp
+Docker,Cloud & DevOps,docker
+Kubernetes,Cloud & DevOps,kubernetes
+CI/CD,Cloud & DevOps,ci/cd
+Jenkins,Cloud & DevOps,jenkins
+Terraform,Cloud & DevOps,terraform
+CloudFormation,Cloud & DevOps,cloudformation
+Ansible,Cloud & DevOps,ansible
+Microservices,Cloud & DevOps,microservices
+Serverless,Cloud & DevOps,serverless
+Machine Learning,Data Science & Analytics,machine learning
+Deep Learning,Data Science & Analytics,deep learning
+TensorFlow,Data Science & Analytics,tensorflow
+PyTorch,Data Science & Analytics,pytorch
+Scikit-learn,Data Science & Analytics,scikit-learn
+Data Analysis,Data Science & Analytics,data analysis
+Statistics,Data Science & Analytics,statistics
+Pandas,Data Science & Analytics,pandas
+NumPy,Data Science & Analytics,numpy
+SQL,Data Science & Analytics,sql
+Tableau,Data Science & Analytics,tableau
+Power BI,Data Science & Analytics,power bi
+Jupyter,Data Science & Analytics,jupyter
+Python,Data Science & Analytics,python
+R,Data Science & Analytics,r
+SQL,Database,sql
+MySQL,Database,mysql
+PostgreSQL,Database,postgresql
+MongoDB,Database,mongodb
+Oracle,Database,oracle
+Cassandra,Database,cassandra
+Redis,Database,redis
+Database Design,Database,database design
+Query Optimization,Database,query optimization
+NoSQL,Database,nosql
+Leadership,Soft Skills,leadership
+Communication,Soft Skills,communication
+Problem Solving,Soft Skills,problem solving
+Critical Thinking,Soft Skills,critical thinking
+Teamwork,Soft Skills,teamwork
+Time Management,Soft Skills,time management
+Adaptability,Soft Skills,adaptability
+Creativity,Soft Skills,creativity
+Negotiation,Soft Skills,negotiation
+Mentoring,Soft Skills,mentoring
+Project Management,Soft Skills,project management
+Strategic Planning,Soft Skills,strategic planning
+Decision Making,Soft Skills,decision making
+Financial Analysis,Business,financial analysis
+Business Development,Business,business development
+Market Research,Business,market research
+Strategic Planning,Business,strategic planning
+Business Acumen,Business,business acumen
+Sales,Business,sales
+Marketing,Business,marketing
+Budget Management,Business,budget management
+P&L Management,Business,p&l management
+User Experience,Design,user experience
+User Interface,Design,user interface
+Graphic Design,Design,graphic design
+Web Design,Design,web design
+Adobe Creative Suite,Design,adobe creative suite
+Figma,Design,figma
+Wireframing,Design,wireframing
+Prototyping,Design,prototyping
+Penetration Testing,Cybersecurity,penetration testing
+Network Security,Cybersecurity,network security
+Encryption,Cybersecurity,encryption
+Firewalls,Cybersecurity,firewalls
+Security Protocols,Cybersecurity,security protocols
+Risk Assessment,Cybersecurity,risk assessment
+Compliance,Cybersecurity,compliance
+Security Architecture,Cybersecurity,security architecture
+Project Management,Professional,project management
+Agile,Professional,agile
+Scrum,Professional,scrum
+Kanban,Professional,kanban
+Jira,Professional,jira
+Confluence,Professional,confluence
+Documentation,Professional,documentation
+Technical Writing,Professional,technical writing
+Presentation Skills,Professional,presentation skills
