@@ -113,7 +113,8 @@ Evaluasi kualitas, tipe data, dan integritas dilakukan secara ketat pada tahap a
 
 Dilakukan di `notebooks/EDA1.ipynb` & `notebooks/EDA2.ipynb`. Seluruh temuan dianalisis secara tekstual dengan narasi markdown dan dipastikan selaras dengan visualisasi pada dashboard.
 EDA - Awal ( `notebooks/EDA1.ipynb`)
-Pada tahap awal, dilakukan Exploratory Data Analysis (EDA) terhadap dataset gabungan untuk memahami karakteristik data serta menghasilkan dataset skill mapping dalam format CSV. Dataset skill mapping tersebut kemudian menjadi salah satu dataset yang digunakan pada proses pemodelan. Setelah sesi mentoring, dilakukan refinement dataset dengan memfokuskan analisis pada lima job utama serta penyesuaian skill mapping agar lebih relevan dengan tujuan project. Oleh karena itu, dilakukan EDA lanjutan terhadap dataset final yang terdiri dari empat dataset utama, termasuk dataset skill mapping CSV, yang digunakan dalam proses modeling.
+
+**Pada tahap awal, dilakukan Exploratory Data Analysis (EDA) terhadap dataset gabungan untuk memahami karakteristik data serta menghasilkan dataset skill mapping dalam format CSV. Dataset skill mapping tersebut kemudian menjadi salah satu dataset yang digunakan pada proses pemodelan. Setelah sesi mentoring, dilakukan refinement dataset dengan memfokuskan analisis pada lima job utama serta penyesuaian skill mapping agar lebih relevan dengan tujuan project. Oleh karena itu, dilakukan EDA lanjutan terhadap dataset final yang terdiri dari empat dataset utama, termasuk dataset skill mapping CSV, yang digunakan dalam proses modeling.**
 # Analisis Hasil dan Pembahasan EDA: Supply vs Demand Kompetensi Kerja
 
 Berdasarkan visualisasi dan pengolahan data yang telah dilakukan pada tahap Eksplorasi Data (EDA), ditemukan beberapa temuan krusial mengenai kondisi pasar tenaga kerja (*Supply*) dibandingkan dengan standar kompetensi industri di Indonesia (*Demand*).
