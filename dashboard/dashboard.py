@@ -50,8 +50,12 @@ st.markdown("""
 
 with st.sidebar:
     col1, col2, col3 = st.columns([1, 2, 1])
+
     with col2:
-        st.image("logopelet.png", width=100)
+        BASE_DIR = Path(__file__).parent
+        image_path = BASE_DIR / "logopelet.png"
+
+        st.image(str(image_path), width=100)
     st.markdown("## Pelet - Dashboard")
     st.markdown("**AI Semantic Matching Berbasis SKKNI**")
     st.markdown("---")
