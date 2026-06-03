@@ -112,29 +112,30 @@ Evaluasi kualitas, tipe data, dan integritas dilakukan secara ketat pada tahap a
 ## 4. Exploratory Data Analysis (EDA)
 
 Dilakukan di `notebooks/EDA1.ipynb` & `notebooks/EDA2.ipynb`. Seluruh temuan dianalisis secara tekstual dengan narasi markdown dan dipastikan selaras dengan visualisasi pada dashboard.
-EDA - Awal ( `notebooks/EDA1.ipynb`)
+
+### EDA - Awal ( `notebooks/EDA1.ipynb`)
 
 **Pada tahap awal, dilakukan Exploratory Data Analysis (EDA) terhadap dataset gabungan untuk memahami karakteristik data serta menghasilkan dataset skill mapping dalam format CSV. Dataset skill mapping tersebut kemudian menjadi salah satu dataset yang digunakan pada proses pemodelan. Setelah sesi mentoring, dilakukan refinement dataset dengan memfokuskan analisis pada lima job utama serta penyesuaian skill mapping agar lebih relevan dengan tujuan project. Oleh karena itu, dilakukan EDA lanjutan terhadap dataset final yang terdiri dari empat dataset utama, termasuk dataset skill mapping CSV, yang digunakan dalam proses modeling.**
-# Analisis Hasil dan Pembahasan EDA: Supply vs Demand Kompetensi Kerja
 
+**Analisis Hasil dan Pembahasan EDA: Supply vs Demand Kompetensi Kerja**
 Berdasarkan visualisasi dan pengolahan data yang telah dilakukan pada tahap Eksplorasi Data (EDA), ditemukan beberapa temuan krusial mengenai kondisi pasar tenaga kerja (*Supply*) dibandingkan dengan standar kompetensi industri di Indonesia (*Demand*).
 
-## 1. Analisis Sisi Supply: Profil Keahlian Pelamar (Resume Data)
+**Analisis Sisi Supply: Profil Keahlian Pelamar (Resume Data)**
 Sisi *Supply* dianalisis menggunakan 10 keahlian yang paling sering muncul dalam dokumen resume pelamar kerja (`cleaned_training_data.csv`).
 
-### Karakteristik Data *Supply*:
+**Karakteristik Data *Supply*:**
 * **Didominasi oleh istilah teknis (Hard Skills) global:** Pelamar kerja cenderung menuliskan keahlian mereka menggunakan nama teknologi, bahasa pemrograman, atau *tools* spesifik yang populer di industri internasional (seperti **Python**, **SQL**, **Data Analysis**, **Machine Learning**, atau **Project Management**).
 * **Fleksibilitas Bahasa:** Mayoritas pelamar menggunakan istilah dalam bahasa Inggris karena mengacu pada standar industri teknologi global.
 * **Tingkat Spesifikasi Tinggi:** Pelamar langsung merujuk pada metodologi spesifik atau perangkat lunak yang mereka kuasai guna menarik perhatian perekrut (*recruiter*).
 
-## Analisis Sisi Demand: Standar Kompetensi Nasional (SKKNI Data)
+** Analisis Sisi Demand: Standar Kompetensi Nasional (SKKNI Data)**
 Sisi *Demand* dianalisis menggunakan 10 judul unit kompetensi yang paling sering muncul dalam dokumen regulasi pekerjaan (`data_pekerjaan.csv`).
-### Karakteristik Data *Demand*:
+**Karakteristik Data *Demand*:**
 * **Berbasis Aktivitas dan Standardisasi Birokrasi:** Berbeda dengan pelamar, dokumen SKKNI tidak menggunakan nama *brand* atau *tools* spesifik, melainkan menggunakan kalimat deklaratif/prosedural (seperti **"Mengoperasikan Aplikasi Perangkat Lunak Lembar Kerja"**, **"Menerapkan Keselamatan dan Kesehatan Kerja (K3)"**, atau **"Melakukan Komunikasi Bisnis"**).
 * **Penggunaan Bahasa Baku:** Seluruh kompetensi ditulis menggunakan bahasa Indonesia formal yang terstruktur sesuai aturan Kementerian Ketenagakerjaan.
 * **Bersifat Fondasional dan Generik:** Unit kompetensi yang paling sering muncul rata-rata merupakan kemampuan mendasar yang dibutuhkan oleh banyak jabatan kerja sekaligus (multisektoral).
 
-## Identifikasi Masalah Utama: Kesenjangan Semantik (*Semantic Gap*)
+**Identifikasi Masalah Utama: Kesenjangan Semantik (*Semantic Gap*)**
 Melalui perbandingan kedua grafik horizontal tersebut, ditemukan **Kesenjangan Semantik (*Semantic Gap*)** yang sangat lebar antara pelamar kerja dan standar industri di Indonesia. 
 | Aspek Perbandingan | Sisi Supply (Pelamar) | Sisi Demand (SKKNI) |
 | :--- | :--- | :--- |
@@ -142,7 +143,7 @@ Melalui perbandingan kedua grafik horizontal tersebut, ditemukan **Kesenjangan S
 | **Fokus Penulisan** | Nama Alat (*Tools*) & Teknologi (e.g., *Excel, Tableau*) | Fungsi & Prosedur Kerja (e.g., *Mengoperasikan Lembar Kerja*) |
 | **Skala Acuan** | Tren Teknologi Global | Standar Lapangan Kerja Nasional |
 
-### Dampak Kesenjangan:
+**Dampak Kesenjangan:**
 Jika data resume langsung dicocokkan (*direct matching*) dengan data SKKNI menggunakan metode pencarian kata kunci sederhana (*exact string matching*), maka **persentase kecocokan akan mendekati 0%**. Sistem tidak akan tahu bahwa pelamar yang menulis keahlian *"Microsoft Excel"* sebenarnya sudah memenuhi unit kompetensi *"Mengoperasikan Aplikasi Perangkat Lunak Lembar Kerja"*.
 
 ---
