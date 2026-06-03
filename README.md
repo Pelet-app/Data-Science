@@ -262,7 +262,7 @@ Dashboard PELET dibangun menggunakan Streamlit dan Plotly.
 | Skill Demand       | Analisis supply vs demand skill |
 | SKKNI Gap Analysis | Analisis coverage SKKNI         |
 
-Link dashboard : https://data-science-jtqg8peajwjqqksibr9pji.streamlit.app/
+#### Link dashboard : https://data-science-jtqg8peajwjqqksibr9pji.streamlit.app/
 ---
 
 # 8. A/B Testing
