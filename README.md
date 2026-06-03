@@ -29,15 +29,6 @@ Indonesia menghadapi masalah *skill mismatch* yang kronis antara kompetensi penc
 
 Sistem pencocokan kerja yang ada saat ini masih mengandalkan *keyword matching* yang kaku, dan Standar Kompetensi Kerja Nasional Indonesia (SKKNI) belum terintegrasi secara optimal dengan sistem rekrutmen digital. Akibatnya, kandidat berkualitas bisa terlewat hanya karena perbedaan penulisan istilah, bukan karena tidak kompeten.
 
-### Solusi Utama
-
-Membangun sistem analisis dan pencocokan kerja berbasis AI bernama **PELET (Pencari Lowongan Efektif & Tepat)** yang bertugas untuk:
-- Mengagregasi profil resume pelamar kerja secara massal dan mengekstrak entitas skill-nya.
-- Memetakan kebutuhan riil lowongan pekerjaan di Indonesia berdasarkan data pasar nyata.
-- Menghubungkan secara langsung *international skills* (kebutuhan industri) terhadap kode unit kompetensi nasional (SKKNI) menggunakan pendekatan *semantic matching* berbasis Sentence-BERT.
-- Mengukur persentase kecocokan kompetensi kandidat serta menampilkan visualisasi peta kesenjangan (*skill gap*) secara interaktif dalam bentuk dashboard Streamlit.
-- Memvalidasi secara ilmiah keunggulan pendekatan semantik dibandingkan *keyword matching* konvensional melalui A/B Testing.
-
 ---
 
 ## 2. Pertanyaan Bisnis
@@ -46,9 +37,9 @@ Pertanyaan bisnis didefinisikan secara terukur untuk memandu seluruh proses anal
 
 | No | Pertanyaan Bisnis | Dataset | Metrik |
 |---|---|---|---|
-| 1 | Bagaimana kesenjangan (gap) antara rumpun skill digital yang dimiliki pelamar dengan kualifikasi skill yang paling banyak dibutuhkan industri? | `cleaned_training_data.csv` + `cleaned_job_5.csv` | Frekuensi kemunculan skill di resume vs lowongan (per 1.000 entri) |
-| 2 | Bagaimana kecocokan profil pengalaman kerja para pencari kerja jika disandingkan dengan ekspektasi minimum dari industri? | `cleaned_training_data.csv` + `cleaned_job_5.csv` | Distribusi `exp_bucket` supply vs demand (%) |
-| 3 | Seberapa luas cakupan unit kompetensi SKKNI dalam memetakan skill digital modern yang berkembang di pasar kerja saat ini? | `skill_mapping_dictionary.csv` + `skkni_reference_clean.csv` | Persentase status Terpetakan, Parsial, dan Belum Dipetakan |
+| 1 |Bagaimana kesenjangan (gap) antara rumpun skill digital yang dimiliki oleh para pelamar kerja dengan kualifikasi skill yang saat ini paling banyak dibutuhkan oleh industri? | `cleaned_training_data.csv` + `cleaned_job_5.csv` | Frekuensi kemunculan skill di resume vs lowongan (per 1.000 entri) |
+| 2 | Bagaimana kecocokan profil pengalaman kerja (tahun pengalaman) para pencari kerja saat ini jika disandingkan dengan ekspektasi atau persyaratan minimum dari industri?| `cleaned_training_data.csv` + `cleaned_job_5.csv` | Distribusi `exp_bucket` supply vs demand (%) |
+| 3 | Seberapa luas cakupan atau kesesuaian unit kompetensi standar nasional (SKKNI) dalam memetakan skill-skill digital modern yang berkembang di pasar kerja saat ini? | `skill_mapping_dictionary.csv` + `skkni_reference_clean.csv` | Persentase status Terpetakan, Parsial, dan Belum Dipetakan |
 
 ---
 
