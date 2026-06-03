@@ -1,4 +1,6 @@
-# Pelet — Data Science
+# PELET — Data Science
+**PELET (Pencari Lowongan Efektif & Tepat): AI Semantic Matching Berbasis SKKNI**
+Coding Camp 2026 powered by DBS Foundation | Tim CC26-PSU060
 
 ---
 
@@ -19,24 +21,22 @@
 ---
 
 ## 1. Problem Discovery
+
 ### Permasalahan
-Banyak pencari kerja di Indonesia kesulitan mengetahui jabatan mana yang paling cocok dengan kemampuan (*skill*) yang mereka miliki. Di sisi lain, standar kompetensi resmi nasional (SKKNI) bersifat kaku dan memerlukan waktu lama untuk diperbarui, sehingga belum tentu selaras secara *real-time* dengan kebutuhan industri nyata saat ini. Akibatnya, terjadi *missmatch* (ketidaksesuaian) yang tinggi antara suplai tenaga kerja dan kebutuhan pasar kerja (demand).
+
+Indonesia menghadapi masalah *skill mismatch* yang kronis antara kompetensi pencari kerja dan kebutuhan nyata industri. Berdasarkan data BPS (2024), tingkat pengangguran tertinggi justru berasal dari lulusan SMK dan pendidikan tinggi, mencapai 8,62%. Sebanyak 50% tenaga kerja Indonesia mengalami *vertical mismatch* (Mandiri Institute, 2025), dan 46% perusahaan di Indonesia kesulitan menemukan kandidat yang sesuai (Transcon Indonesia, 2025).
+
+Sistem pencocokan kerja yang ada saat ini masih mengandalkan *keyword matching* yang kaku, dan Standar Kompetensi Kerja Nasional Indonesia (SKKNI) belum terintegrasi secara optimal dengan sistem rekrutmen digital. Akibatnya, kandidat berkualitas bisa terlewat hanya karena perbedaan penulisan istilah, bukan karena tidak kompeten.
 
 ### Solusi Utama
-Membangun sistem analisis kurikulum dan rekomendasi pekerjaan berbasis AI bernama **Pelet** yang bertugas untuk:
+
+Membangun sistem analisis dan pencocokan kerja berbasis AI bernama **PELET (Pencari Lowongan Efektif & Tepat)** yang bertugas untuk:
 - Mengagregasi profil resume pelamar kerja secara massal dan mengekstrak entitas skill-nya.
-- Memetakan kebutuhan riil lowongan pekerjaan di Indonesia berdasarkan data aggregator pasar.
-- Menghubungkan secara langsung *international skills* (kebutuhan industri) terhadap kode unit kompetensi nasional (SKKNI).
-- Mengukur persentase kecocokan kompetensi kandidat serta menampilkan visualisasi peta kesenjangan (*skill gap*) secara interaktif dalam bentuk dashboard.
+- Memetakan kebutuhan riil lowongan pekerjaan di Indonesia berdasarkan data pasar nyata.
+- Menghubungkan secara langsung *international skills* (kebutuhan industri) terhadap kode unit kompetensi nasional (SKKNI) menggunakan pendekatan *semantic matching* berbasis Sentence-BERT.
+- Mengukur persentase kecocokan kompetensi kandidat serta menampilkan visualisasi peta kesenjangan (*skill gap*) secara interaktif dalam bentuk dashboard Streamlit.
+- Memvalidasi secara ilmiah keunggulan pendekatan semantik dibandingkan *keyword matching* konvensional melalui A/B Testing.
 
----
-### Solusi Utama
-Membangun sistem rekomendasi pekerjaan berbasis AI (**SkillBridge AI**) yang:
-- Menerima CV/Resume pelamar kerja.
-- Menganalisis dan mengekstrak skill dari resume secara terstruktur.
-- Memetakan kebutuhan skill industri nyata (Kaggle & JobStreet) terhadap standar kompetensi nasional (SKKNI).
-- Mengukur persentase kecocokan skill (relevansi) dan menampilkan visualisasi gap secara interaktif.
-  
 ---
 
 ## 2. Pertanyaan Bisnis
@@ -45,9 +45,9 @@ Pertanyaan bisnis didefinisikan secara terukur untuk memandu seluruh proses anal
 
 | No | Pertanyaan Bisnis | Dataset | Metrik |
 |---|---|---|---|
-| 1 | Jabatan SKKNI mana yang memiliki jumlah unit kompetensi unik paling tinggi dibandingkan jabatan lainnya? | SKKNI | Jumlah unit kompetensi unik per jabatan |
-| 2 | Skill apa yang paling sering muncul pada requirement lowongan kerja industri di Indonesia? | JobStreet Indonesia | Frekuensi kemunculan skill di lowongan kerja |
-| 3 | Bagaimana distribusi pemetaan status kecocokan skill internasional terhadap unit kompetensi SKKNI? | Skill Mapping Dictionary | Persentase status Terpetakan, Parsial, dan Belum Dipetakan |
+| 1 | Bagaimana kesenjangan (gap) antara rumpun skill digital yang dimiliki pelamar dengan kualifikasi skill yang paling banyak dibutuhkan industri? | `cleaned_training_data.csv` + `cleaned_job_5.csv` | Frekuensi kemunculan skill di resume vs lowongan (per 1.000 entri) |
+| 2 | Bagaimana kecocokan profil pengalaman kerja para pencari kerja jika disandingkan dengan ekspektasi minimum dari industri? | `cleaned_training_data.csv` + `cleaned_job_5.csv` | Distribusi `exp_bucket` supply vs demand (%) |
+| 3 | Seberapa luas cakupan unit kompetensi SKKNI dalam memetakan skill digital modern yang berkembang di pasar kerja saat ini? | `skill_mapping_dictionary.csv` + `skkni_reference_clean.csv` | Persentase status Terpetakan, Parsial, dan Belum Dipetakan |
 
 ---
 
@@ -60,9 +60,9 @@ Data dikumpulkan dari berbagai sumber, **tidak menggunakan dataset siap pakai ta
 | Dataset | Sumber | Metode Pengumpulan | File |
 |---|---|---|---|
 | SKKNI | Website resmi SKKNI | Web scraping manual + filter + cleaning manual | `skkni_reference_clean.csv` |
-| Lowongan Kerja Indonesia | JobStreet Indonesia | Download dataset publik + filter manual + cleaning manual | `cleaned_job_5.csv` |
-| Data Resume (Training) | Kaggle | Dataset profil resume dan skill teks | `cleaned_training_data.csv` |
-| Kamus Pemetaan Skill | Hasil Pemetaan Mandiri | Kamus relasi skill industri vs kode unit SKKNI | `skill_mapping_dictionary.csv` |
+| Lowongan Kerja Indonesia | Glints Indonesia (via GitHub publik) | Download dataset publik + filter manual + cleaning manual | `cleaned_job_5.csv` |
+| Data Resume (Training) | Kaggle | Dataset profil resume dan skill teks sintetis (10.000 entri) | `cleaned_training_data.csv` |
+| Kamus Pemetaan Skill | Hasil Pemetaan Mandiri | Kamus relasi skill internasional vs kode unit SKKNI | `skill_mapping_dictionary.csv` |
 
 ### 3.2 Assessing Data
 
@@ -70,71 +70,88 @@ Evaluasi kualitas, tipe data, dan integritas dilakukan secara ketat pada tahap a
 
 **SKKNI (`skkni_reference_clean.csv`):**
 - Terdiri dari 662 baris dengan kolom `Kode Unit`, `Judul Unit`, `Elemen Kompetensi`, dan `Jabatan`.
-- Ditemukan inkonsistensi penulisan nama jabatan target (misalnya terdapat variasi teks seperti 'Cyber security' dan 'Security Eng.').
+- Ditemukan inkonsistensi penulisan nama jabatan target (misalnya variasi teks seperti `'Cyber security'` dan `'Security Eng.'`).
+- Hanya mencakup sekitar 40 dari 194 jabatan unik yang dibutuhkan industri digital saat ini — jabatan mutakhir seperti DevOps Engineer, Data Scientist, dan AI Engineer belum terakomodasi sepenuhnya.
 
 **Lowongan Kerja (`cleaned_job_5.csv`):**
 - Terdiri dari 2.516 baris lowongan dengan 18 kolom informasi pasar.
-- Masalah utama: Kolom `location` berisi nama alamat jalan, gedung, atau wilayah mikro yang terlalu spesifik, sehingga mustahil dikelompokkan secara langsung tanpa pembersihan makro.
+- Kolom `job_level` kosong pada 88,1% baris dan kolom `min_salary`/`max_salary` kosong pada 80,5% baris (*inherent sparsity* dari sumber data).
+- Kolom `location` berisi nama alamat jalan atau wilayah mikro yang terlalu spesifik sehingga perlu normalisasi ke level kota.
 - Kolom `requirement` berisi teks tidak berstruktur dengan banyak karakter spesial (`\r`, `\n`, lambang bullet poin).
 
 **Data Resume (`cleaned_training_data.csv`):**
-- Terdiri dari 10.000 data profil pelamar kerja.
-- Masalah utama: Kolom `skills_clean` dieksport dalam bentuk string mentah dari representasi sebuah list (format objek literal string, contoh: `"['python', 'sql']"`), sehingga tidak terbaca sebagai tipe data *Iterable List* oleh Python.
+- Terdiri dari 10.000 data profil pelamar kerja hasil generator sintetis.
+- Kolom `skills_clean` diekspor dalam bentuk string mentah dari representasi list Python (contoh: `"['python', 'sql']"`), sehingga tidak terbaca sebagai tipe data *Iterable List* secara langsung.
 
 **Kamus Pemetaan Skill (`skill_mapping_dictionary.csv`):**
 - Terdiri dari 114 baris relasi kompetensi internasional terhadap status nasional.
-- Ditemukan banyak nilai kosong (*Missing Values*) pada kolom `Kode_Unit_SKKNI` dan `Judul_Unit_SKKNI` khusus untuk kategori keahlian berupa *soft skills* dan alat visualisasi modern.
-  
+- Seluruh kolom `Kode_Unit_SKKNI` dan `Judul_Unit_SKKNI` awalnya kosong — mencerminkan kondisi riil bahwa belum ada jembatan konseptual resmi antara standar internasional dan SKKNI nasional. Pemetaan dilakukan secara mandiri oleh tim.
+
 ### 3.3 Cleaning Data
 
-Proses pembersihan awal dilakukan untuk memastikan kualitas data dasar berada pada standar yang siap diolah:
+**Dataset Lowongan:**
+- Kolom `type_of_work` yang null diimputasi dengan nilai `"Tidak Diketahui"`.
+- Kolom `currency` yang null diimputasi dengan `"Tidak Diketahui"`.
+- Dibuat kolom baru `has_salary` (boolean) untuk menandai baris yang memiliki informasi gaji, menghindari bias analisis.
+- Dibuat kolom `salary_mid` sebagai rata-rata `min_salary` dan `max_salary`.
+- Ditambahkan kolom `kota` hasil normalisasi dari kolom `location` menggunakan `CITY_MAP`.
 
-- **Pembersihan Noise & Karakter Spesial:** Menghilangkan karakter *break-line* (`\r`, `\n`), simbol-simbol tak standar, dan spasi ganda pada teks dokumen SKKNI serta kolom kualifikasi lowongan kerja JobStreet.
-- **Normalisasi Teks (Case Folding):** Mengubah seluruh teks kompetensi, nama skill, dan jabatan target menjadi huruf kecil (*lowercase*) seragam guna menghindari duplikasi akibat perbedaan kapitalisasi kata.
-- **Penyaringan Baris Kosong:** Membuang baris data yang tidak memiliki informasi kompetensi inti serta mengisi nilai kosong pada kolom non-kritis dengan label default `"Lainnya"`.
+**Dataset Resume:**
+- Kolom `skills_clean` yang berformat string list diparse menjadi list Python menggunakan `ast.literal_eval`.
+- Dibuat kolom `skill_count` untuk menghitung jumlah skill per kandidat.
+- Dibuat kolom `exp_bucket` untuk mengelompokkan pengalaman kerja ke dalam 5 kategori terstruktur.
+
+**Pembersihan Umum:**
+- Menghilangkan karakter *break-line* (`\r`, `\n`) dan simbol tak standar pada teks SKKNI dan kolom kualifikasi lowongan.
+- Normalisasi seluruh teks ke *lowercase* untuk menghindari duplikasi akibat perbedaan kapitalisasi.
 
 ### 3.4 Integrasi & Transformasi Lanjutan (`data_loader.py`)
 
-Guna **menggabungkan (merge) dan mengintegrasikan hubungan logis antara 4 dataset berbeda** di atas agar dapat saling terhubung dan terbaca secara dinamis oleh grafik dashboard, berkas pemrograman `data_loader.py` bertugas sebagai **Data Pipeline & Feature Engineering** melalui operasi backend berikut:
+`data_loader.py` berfungsi sebagai **Data Pipeline & Feature Engineering** yang mengintegrasikan 4 dataset agar terhubung secara dinamis dengan dashboard:
 
-- **Penyelarasan Geografis Multilevel:** Menggunakan fungsi pembantu `extract_city(loc)` bersama kamus pemetaan wilayah `CITY_MAP`. Logika pemrograman ini bertugas mendeteksi variasi penulisan wilayah mikro pada data lowongan (seperti "jakarta selatan", "dki jakarta", "jakarta raya") dan menyatukannya secara otomatis ke dalam kategori kota induk yang seragam (misal: `"Jakarta"`, `"Bandung"`, `"Surabaya"`).
-- **Object Type Transformation:** Menggunakan library `ast.literal_eval` di dalam fungsi `parse_skills` untuk mengubah teks string data skill pada data resume kembali menjadi tipe data List Python asli. Tanpa transformasi tipe data lewat *pipeline* ini, program komputer tidak akan bisa menghitung statistik frekuensi kemunculan kata kunci memakai fungsi `Counter`.
-- **Kategorisasi Pengalaman (*Feature Engineering*):** Menggunakan fungsi binning `pd.cut` terhadap kolom numerik `Experience Years` pada resume pelamar untuk dikelompokkan ke dalam 5 label kategori terstruktur: `Fresh (<1)`, `Junior (1–3)`, `Mid (3–5)`, `Senior (5–10)`, dan `Expert (10+)` yang disimpan ke kolom baru bernama `exp_bucket` demi menyajikan visualisasi data yang informatif.
-- **Relasi Skill Gap Antar-Dataset:** Menghubungkan entitas kata kunci skill dari sisi *Demand* (Lowongan) dan *Supply* (Resume) terhadap status *Kecocokan* di dalam Kamus Pemetaan Skill, sehingga dashboard aplikasi **Pelet** mampu memetakan grafik kesenjangan (*skill gap*) secara *real-time*.
+- **Penyelarasan Geografis Multilevel:** Fungsi `extract_city(loc)` dengan kamus `CITY_MAP` mendeteksi variasi penulisan wilayah mikro dan menyatukannya ke kota induk yang seragam.
+- **Object Type Transformation:** `ast.literal_eval` di dalam `parse_skills()` mengubah string skill menjadi list Python asli agar bisa dihitung frekuensinya dengan `Counter`.
+- **Ekstraksi Skill Berbasis Kamus (Regex Matching):** Fungsi `extract_skills_with_regex()` menggunakan `re.escape()` dan *word boundary* `\b` untuk mencocokkan skill dari kolom `requirement` lowongan terhadap kamus `skill_mapping_dictionary.csv` — memastikan hanya nama skill valid yang diekstrak, bukan token kata acak.
+- **Kategorisasi Pengalaman (Feature Engineering):** `pd.cut` terhadap kolom `Experience Years` menghasilkan kolom `exp_bucket` dengan 5 label: `Fresh (<1)`, `Junior (1–3)`, `Mid (3–5)`, `Senior (5–10)`, `Expert (10+)`.
+- **Path Dinamis:** Seluruh path dataset menggunakan `pathlib.Path(__file__).resolve().parent` sehingga tidak bergantung pada direktori tempat script dijalankan.
 
 ---
 
 ## 4. Exploratory Data Analysis (EDA)
 
-Seluruh temuan data dianalisis secara tekstual dan dipastikan selaras dengan visualisasi pada dashboard:
+Dilakukan di `notebooks/EDA.ipynb`. Seluruh temuan dianalisis secara tekstual dengan narasi markdown dan dipastikan selaras dengan visualisasi pada dashboard.
 
-### Analisis Sisi Regulasi (SKKNI)
-- Agregasi data pada berkas `skkni_reference_clean.csv` menunjukkan bahwa profesi di bawah rumpun teknologi canggih seperti *Software Architect*, *Cyber Security Specialists*, dan *Data Scientist* memiliki rata-rata elemen kompetensi yang jauh lebih banyak per jabatan. Standar kompetensinya berfokus penuh pada aspek prosedural teknis operasional (*hard skills*).
+### Analisis Sisi Supply (Resume Pelamar)
+- Sektor **Technology** menguasai pasokan terbesar dengan 2.511 resume (25,1%), diikuti Finance (12,0%) dan Healthcare (9,8%).
+- Rata-rata pelamar memiliki **8,3 skill** per resume dengan distribusi mendekati normal (*slight right-skew*).
+- *Soft skills* universal mendominasi: `communication` (4.821 kemunculan) dan `problem solving` (4.103 kemunculan). Di sisi *hard skills*, `SQL` (3.201) dan `Python` (2.287) memimpin.
 
-### Analisis Sisi Pasar (JobStreet & Resume)
-- Dari total 2.516 lowongan kerja aktif, pusat penyerapan tenaga kerja terbesar di Indonesia terkonsentrasi sangat padat di wilayah **DKI Jakarta** dan **Bandung**, dengan sistem kerja dominan berupa **Penuh Waktu (Full-time)**.
-- Dari 10.000 data profil pelamar kerja, kelompok pencari kerja terbesar didominasi oleh kelas *Fresh Graduate* (<1 tahun) dan *Junior* (1-3 tahun), mengindikasikan tingginya tingkat kompetisi di level masuk kerja (*entry-level*).
+### Analisis Sisi Demand (Pasar Lowongan)
+- **Jakarta** mendominasi 73,4% dari seluruh lowongan (1.847 lowongan), diikuti Bandung (189) dan Surabaya (124) — mencerminkan sentralisasi industri digital di ibu kota.
+- Median gaji IDR menyentuh **Rp 8,5 juta/bulan** dengan rentang sangat lebar (Rp 2–150 juta), mengkonfirmasi premium kompensasi untuk level Senior/Expert.
+- Posisi terpopuler: Business Development Manager (143), Data Analyst (127), Fullstack Developer (98).
+
+### Analisis Dokumen Regulasi SKKNI
+- Profesi **Programmer** memiliki beban standardisasi terbanyak dengan 37 unit kompetensi, diikuti Keuangan (28 unit) dan Cyber Security (25 unit).
+- Dari 114 skill internasional: **14,9% terpetakan konseptual**, **4,4% terpetakan parsial**, dan **80,7% belum terpetakan** sama sekali ke unit SKKNI.
 
 ---
 
 ## 5. Visualisasi & Explanatory Analysis
 
-Dashboard **Pelet** menjawab pertanyaan bisnis melalui sajian grafik yang interaktif:
+Dilakukan di `notebooks/Visualisasi.ipynb`. Dashboard **PELET** menjawab 3 pertanyaan bisnis melalui grafik interaktif berbasis Plotly:
 
-### 1. Kompleksitas Jabatan SKKNI (Menjawab Pertanyaan 1)
-- Ditampilkan dalam bentuk **Bar Chart** yang menghitung frekuensi kode unit unik per jabatan kerja. Terlihat visualisasi grafik vertikal yang menunjukkan tingkat kedalaman materi uji kompetensi pada masing-masing posisi.
+### Pertanyaan Bisnis 1 — Skill Gap: Supply vs Demand
+- **Bar Chart komparatif** yang menampilkan frekuensi skill dinormalisasi per 1.000 entri dari sisi resume (supply) dan lowongan (demand).
+- **Temuan kritis:** Industri sangat membutuhkan `PHP` (gap: +222,5), `MySQL` (+159,3), dan `JavaScript` (+146,6) namun ketersediaannya di resume sangat minim. Sebaliknya, `communication` dan `problem solving` jauh oversupply di resume namun hampir tidak muncul di persyaratan lowongan.
 
-### 2. Geografis & Karakter Kontrak Pasar Kerja (Menjawab Pertanyaan 2)
-- Menggunakan **Pie Chart** interaktif untuk melihat porsi perbandingan status kerja industri (Penuh waktu, Kontrak, dll).
-- Disandingkan dengan **Bar Chart Horizontal** hasil ekstraksi lokasi kerja untuk memperlihatkan dengan jelas ketimpangan ketersediaan lapangan kerja antar wilayah di Indonesia.
+### Pertanyaan Bisnis 2 — Experience Mismatch
+- **Bar Chart distribusi** level pengalaman pelamar vs ekspektasi industri dalam persentase.
+- **Temuan kritis:** Pelamar Fresh Graduate (<1 tahun) mendominasi supply, sementara industri paling banyak membutuhkan profil Junior–Mid (1–3 tahun) hingga Senior (5–10 tahun) — mengindikasikan *vertical mismatch* struktural.
 
-### 3. Distribusi Kesiapan Suplai Tenaga Kerja (Menjawab Pertanyaan 3)
-- Menampilkan grafik distribusi kategorikal dari kolom fitur `exp_bucket`. Analisis ini membantu industri memetakan apakah stok pelamar kerja yang tersedia di pasar saat ini sesuai dengan kualifikasi pengalaman kerja yang dicari.
-
-### 4. Analisis Kesenjangan / Skill Gap (Menjawab Pertanyaan 4)
-- Berupa **Bar Chart Top 30 Skills** paling dicari di industri yang dilengkapi dengan penanda warna (*Color-coded*) berbasis data status `Kecocokan` dari kamus pemetaan skill.
-- **Warna Hijau (Terpetakan):** Keahlian teknis inti seperti *Python*, *SQL*, *JavaScript* terbukti aman karena sudah diakomodasi dalam skema jabatan regulasi nasional.
-- **Warna Merah (Belum Dipetakan):** Menyoroti keahlian tipe *soft skills* krusial (seperti *communication*, *leadership*, *problem solving*) serta teknologi mutakhir (*Figma*, *Git*) yang permintaannya sangat tinggi di lowongan kerja nyata namun belum tercatat secara eksplisit di dalam struktur dokumen unit kompetensi SKKNI.
+### Pertanyaan Bisnis 3 — Cakupan SKKNI
+- **Bar Chart** jumlah unit kompetensi dan elemen per jabatan pada 5 rumpun utama (Programmer, UI/UX, Data Analyst, Cyber Security, Keuangan).
+- **Stacked bar chart** status pemetaan skill: 80,7% skill modern berstatus *Belum Dipetakan*, termasuk ekosistem DevOps (Kubernetes, Docker, Terraform) dan framework modern (React, Node.js, Flutter).
 
 ---
 
@@ -151,68 +168,140 @@ Dashboard **Pelet** menjawab pertanyaan bisnis melalui sajian grafik yang intera
 | `Elemen Kompetensi` | string | Detail elemen pekerjaan di dalam unit terkait |
 | `Jabatan` | string | Nama posisi/jabatan pekerjaan yang dinormalisasi |
 
+**`skill_mapping_dictionary.csv`** — 114 baris
+
+| Kolom | Tipe Data | Keterangan |
+|---|---|---|
+| `Skill_Internasional_Kaggle` | string | Nama skill dalam bahasa Inggris |
+| `Kode_Unit_SKKNI` | string | Kode unit SKKNI yang sesuai (hasil pemetaan mandiri) |
+| `Judul_Unit_SKKNI` | string | Judul unit SKKNI yang sesuai |
+| `Kecocokan` | string | Status pemetaan: `Cocok`, `Parsial`, atau `Belum Dipetakan` |
+
+**`cleaned_training_data.csv`** — 10.000 baris
+
+| Kolom | Tipe Data | Keterangan |
+|---|---|---|
+| `Resume ID` | string | ID unik resume |
+| `Resume Text` | string | Teks resume lengkap |
+| `Education` | string | Latar belakang pendidikan |
+| `Experience Years` | int | Lama pengalaman kerja (tahun) |
+| `Skills` | string | Daftar skill dipisah pipe |
+| `Job Role` | string | Jabatan/peran pekerjaan |
+| `Category` | string | Kategori bidang pekerjaan |
+| `resume_text_clean` | string | Teks resume setelah cleaning |
+| `skills_clean` | string | Skill dalam format list Python |
+
 **`cleaned_job_5.csv`** — 2.516 baris
 
 | Kolom | Tipe Data | Keterangan |
 |---|---|---|
-| `title` | string | Judul posisi pekerjaan dari lowongan kerja |
+| `title` | string | Judul posisi pekerjaan dari lowongan |
 | `company` | string | Nama perusahaan yang membuka lowongan |
-| `location` | string | Lokasi penempatan kerja |
-| `type_of_work` | string | Jenis kontrak kerja (Penuh Waktu, Paruh Waktu, dll) |
+| `location` | string | Lokasi penempatan kerja (raw) |
+| `type_of_work` | string | Jenis kontrak kerja (Full Time, Contract, dll) |
 | `requirement` | string | Persyaratan kompetensi dan kualifikasi dari industri |
-| `min_work_experience` | float | Batas minimum pengalaman kerja dalam satuan tahun |
-| `max_work_experience` | float | Batas maksimum pengalaman kerja dalam satuan tahun |
-| `link` | string | Tautan/URL menuju lowongan asli |
+| `currency` | string | Mata uang gaji |
+| `min_salary` | float | Gaji minimum (juta) |
+| `max_salary` | float | Gaji maksimum (juta) |
+| `min_work_experience` | int | Minimum pengalaman kerja (tahun) |
+| `max_work_experience` | int | Maksimum pengalaman kerja (tahun) |
+
+### Fitur Hasil Feature Engineering
+
+| Fitur Baru | Sumber | Keterangan |
+|---|---|---|
+| `kota` | `location` | Kota yang dinormalisasi via `CITY_MAP` |
+| `has_salary` | `min_salary`, `max_salary` | Flag boolean ketersediaan info gaji |
+| `salary_mid` | `min_salary`, `max_salary` | Nilai tengah rentang gaji |
+| `req_skills` | `requirement` | List skill valid hasil regex matching vs kamus |
+| `req_skill_count` | `req_skills` | Jumlah skill yang ditemukan per lowongan |
+| `exp_mid` | `min_work_experience`, `max_work_experience` | Rata-rata pengalaman yang diminta |
+| `skill_count` | `skills_clean` | Jumlah skill per resume |
+| `exp_bucket` | `Experience Years` | Kategori level pengalaman (5 bucket) |
 
 ---
 
 ## 7. Dashboard Streamlit
 
-Dashboard interaktif **SkillBridge AI** dikembangkan untuk menyajikan hasil analisis gap antara kurikulum kompetensi nasional dengan kebutuhan riil pasar industri secara visual.
+Dashboard interaktif **PELET** dikembangkan menggunakan Streamlit + Plotly untuk menyajikan hasil analisis gap kompetensi secara visual dan real-time.
 
-### Fitur Utama Dashboard
-- **Sidebar Kontrol:** Meliputi pilihan filter Jabatan Pekerjaan secara dinamis, serta Slider untuk mengatur jumlah Top-N Skill yang ingin ditampilkan pada grafik analisis.
-- **Metric Cards:** Menampilkan metrik ringkasan agregasi data secara real-time (Total Lowongan Teranalisis, Total Profil Resume, Jumlah Jabatan Terpetakan).
-- **Interactive Graphs:** Grafik interaktif menggunakan library Plotly (Bar Chart Berwarna Status SKKNI, Pie Chart Distribusi Tipe Kerja, Scatter Plot).
-- **Insight Boxes:** Penjelasan naratif otomatis di bawah grafik untuk membantu pengguna awam memahami kesimpulan dari visualisasi data yang ditampilkan.
+### Halaman Dashboard
+
+| Halaman | Konten |
+|---|---|
+| **Overview** | KPI cards (total lowongan, resume, unit SKKNI, coverage rate), distribusi kategori resume, distribusi jabatan SKKNI, key insights |
+| **Job Market** | Filter kota/tipe/mata uang, distribusi geografis lowongan, tipe pekerjaan, distribusi gaji IDR, experience mismatch supply vs demand, top 20 judul lowongan |
+| **Skill Demand** | Top skills dari resume (per kategori), top skills dari requirement lowongan (regex-based), heatmap skill per kategori, perbandingan supply vs demand per 1.000 entri |
+| **SKKNI Gap Analysis** | Metric cards coverage rate, pie chart status pemetaan, bar chart skill terpetakan per jabatan SKKNI, tabel detail berwarna, bar chart skill demand vs status SKKNI |
 
 ### Deployment
+
 Dashboard sudah di-deploy ke Streamlit Cloud dan dapat diakses secara publik pada tautan berikut:
 
-link : __
+**Link:** *(isi tautan deployment Streamlit Cloud di sini)*
 
 ### Cara Menjalankan Lokal
+
 ```bash
-pip install streamlit streamlit-autorefresh pandas matplotlib seaborn
-streamlit run dashboard.py
+pip install -r requirements.txt
+streamlit run dashboard/dashboard1.py
 ```
 
 ---
 
 ## 8. A/B Testing
-_____belum ada____
+
+Dilakukan di `notebooks/ab_testing.ipynb` untuk memvalidasi secara ilmiah pemilihan Sentence-BERT sebagai *core matching engine* sistem PELET.
+
+### Desain Eksperimen
+
+| | Grup A (Baseline Control) | Grup B (Treatment) |
+|---|---|---|
+| **Model** | TF-IDF + Cosine Similarity | Sentence-BERT (`paraphrase-multilingual-MiniLM-L12-v2`) |
+| **Pendekatan** | Keyword matching berbasis frekuensi token | Semantic matching berbasis sentence embedding (d=384) |
+| **Dataset** | `cleaned_training_data.csv` — 10.000 resume | Sama |
+
+### Hipotesis
+
+- **H0:** Tidak terdapat perbedaan performa yang signifikan antara TF-IDF dan Sentence-BERT.
+- **H1:** Sentence-BERT menghasilkan performa pencocokan yang secara signifikan lebih tinggi (α = 0,05).
+
+### Hasil
+
+| Model | Accuracy | Precision | Recall | F1-Score |
+|---|---|---|---|---|
+| Grup A — TF-IDF | 73,75% | 100,00% | 47,50% | 64,41% |
+| Grup B — Sentence-BERT | 77,25% | 100,00% | 54,50% | 70,55% |
+
+### Uji Statistik
+
+- **Uji Normalitas (Shapiro-Wilk):** p-value = 0,0000 → data tidak normal → digunakan uji non-parametrik.
+- **Mann-Whitney U Test:** U = 3204,00, p-value = 0,0000 → **Tolak H0**.
+- **Effect Size (Cohen's d):** +0,4774 (kategori sedang–kuat).
+- **Kesimpulan:** Keunggulan Sentence-BERT terbukti valid secara statistik — bukan hasil kebetulan. Sentence-BERT dipilih sebagai model utama sistem PELET.
+
 ### Cara Menjalankan
+
 ```bash
-python AB_Testing/ab_testing.py
+python notebooks/ab_testing.py
 ```
-![Hasil A/B Testing](AB_Testing/AB_testing.png)
+
 ---
 
 ## 9. Laporan Teknis
 
-Laporan teknis komprehensif mencakup seluruh tahapan proyek mulai dari Problem Discovery hingga hasil akhir, tersedia dalam format PDF.
-
-**`belum ada, nanti kami isi`**
+Laporan teknis komprehensif tersedia dalam format PDF di `Laporan.pdf`.
 
 Isi laporan mencakup:
-- Problem Discovery & definisi solusi
-- Pertanyaan bisnis yang terukur
-- Proses Data Wrangling end-to-end
-- Hasil EDA + visualisasi
-- Explanatory analysis per pertanyaan bisnis
-- Persiapan data untuk modeling & feature engineering
-- Hasil A/B Testing + interpretasi statistik
-- Kesimpulan & rekomendasi
+- **Bab 1** — Problem Discovery & latar belakang skill mismatch di Indonesia
+- **Bab 2** — Data Wrangling end-to-end (Gathering, Assessing, Cleaning)
+- **Bab 3** — Exploratory Data Analysis (EDA) dengan insight per dataset
+- **Bab 4** — Explanatory Analysis per pertanyaan bisnis
+- **Bab 5** — Arsitektur Dashboard Streamlit & cara kerja `data_loader.py`
+- **Bab 6** — Desain eksperimen, hasil, dan interpretasi statistik A/B Testing
+- **Bab 7** — Kesimpulan, jawaban pertanyaan bisnis, dan rekomendasi
+
+**File:** `Laporan.pdf`
 
 ---
 
@@ -220,55 +309,71 @@ Isi laporan mencakup:
 
 ```
 capstone_project/
-capstone_project/
 │
 ├── dataset/
-│   ├── cleaned_job_5.csv              # Dataset lowongan kerja Indonesia (2.516 baris)
-│   ├── cleaned_training_data.csv      # Dataset profil resume pelamar kerja (10.000 baris)
-│   ├── skill_mapping_dictionary.csv   # Kamus status kecocokan skill internasional vs SKKNI
-│   └── skkni_reference_clean.csv      # Referensi unit kompetensi resmi SKKNI (662 baris)
+│   ├── cleaned_job_5.csv               # Dataset lowongan kerja Indonesia (2.516 baris)
+│   ├── cleaned_training_data.csv       # Dataset profil resume pelamar kerja (10.000 baris)
+│   ├── skill_mapping_dictionary.csv    # Kamus status kecocokan skill internasional vs SKKNI (114 skill)
+│   └── skkni_reference_clean.csv       # Referensi unit kompetensi resmi SKKNI (662 baris)
 │
 ├── dashboard/
-│   ├── data_loader.py                 # Modul pandas untuk penggabungan data, parsing, & pipeline
-└── |── dashboard.py                   # File utama aplikasi dashboard web Streamlit
+│   ├── dashboard1.py                   # File utama aplikasi dashboard web Streamlit (4 halaman)
+│   ├── data_loader.py                  # Modul pipeline data: parsing, feature engineering, caching
+│   └── logopelet.png                   # Aset logo untuk sidebar dashboard
 │
-├── ab_tetsing                         # 
-└── pdf                                # 
-├── requirements.txt                   # Dependensi Python
-└── README.md                          # Dokumentasi utama (file ini)
+├── notebooks/
+│   ├── EDA__1_.ipynb                   # Analisis eksploratif karakteristik awal data
+│   ├── Visualisasi__1_.ipynb           # Explanatory analysis & visualisasi per pertanyaan bisnis
+│   └── ab_testing__1_.ipynb            # Eksperimen komparatif TF-IDF vs Sentence-BERT
+│
+├── Laporan.pdf                         # Laporan teknis Data Science final (PDF)
+├── requirements.txt                    # Dependensi library Python
+└── README.md                           # Dokumentasi utama (file ini)
 ```
+
 ---
-### 11. Cara Menjalankan
+
+## 11. Cara Menjalankan
 
 ### Install semua dependensi
+
 ```bash
 pip install -r requirements.txt
 ```
----
 
 ### Jalankan Dashboard
+
 ```bash
-streamlit run dashboard.py
+streamlit run dashboard/dashboard1.py
 ```
 
 ### Jalankan A/B Testing
+
 ```bash
-python ab_testing.py
+python notebooks/ab_testing__1_.ipynb
 ```
 
 ### Isi `requirements.txt`
+
 ```
 streamlit
 pandas
 numpy
 matplotlib
 seaborn
+plotly
 scikit-learn
 scipy
+sentence-transformers
 ```
 
 ---
 
 ## Tim Data Science
 
-Proyek ini dikembangkan sebagai bagian dari **Capstone Project — SkillBridge AI**.
+| Nama | ID | Peran |
+|---|---|---|
+| Sukma Novianti Tulak | CDCC237D6X1337 | Data Scientist |
+| Ai Irma Anjelina | CDCC237D6X1441 | Data Scientist |
+
+Proyek ini dikembangkan sebagai bagian dari **Capstone Project PELET — SkillBridge AI**, Coding Camp 2026 powered by DBS Foundation, Tim CC26-PSU060.
