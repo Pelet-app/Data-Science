@@ -399,8 +399,9 @@ python notebooks/ab_testing.ipynb
 streamlit
 pandas
 numpy
-plotly
 matplotlib
+seaborn
+plotly
 scikit-learn
 scipy
 sentence-transformers
