@@ -17,8 +17,9 @@
 7. [Dashboard Streamlit](#7-dashboard-streamlit)
 8. [A/B Testing](#8-ab-testing)
 9. [Laporan Teknis](#9-laporan-teknis)
-10. [Struktur Proyek](#10-struktur-proyek)
-11. [Cara Menjalankan](#11-cara-menjalankan)
+10. [Data Dictionary](#10-data-dictionary)
+11. [Struktur Proyek](#10-struktur-proyek)
+12. [Cara Menjalankan](#11-cara-menjalankan)
 
 ---
 
@@ -304,7 +305,11 @@ Laporan mencakup:
 
 ---
 
-# 10. Struktur Proyek
+# 10. Data Dictionary
+
+Sebelum melangkah ke tahap pemodelan (*machine learning / data modeling*), dataset harus dipastikan bersih, konsisten, dan dipahami dengan benar. File **`Data Dictionary.xlsx`** dalam proyek ini berfungsi sebagai acuan tunggal (*single source of truth*) untuk memahami struktur, tipe data, dan arti dari setiap variabel yang ada. 
+
+# 11. Struktur Proyek
 
 ```bash
 Data-Science/
@@ -344,7 +349,8 @@ Data-Science/
 │   ├── datawrangling_jobstreet.ipynb       # Pembersihan data lowongan dari Jobstreet
 │   └── datawrangling_skkni.ipynb           # Pembersihan datastandar kompetensi SKKNI
 │
-├── Laporan.pdf				                 # Berisi penjelasan analisis
+├── Laporan.pdf		 		                      # Berisi penjelasan analisis
+├──	Data Dictionary.xlsx 		                # Berisi penjelasan dataset yang digunakan untuk tahap modeling
 ├── requirements.txt                        # Daftar dependensi library Python proyek 
 └── README.md                               # Dokumentasi ringkas mengenai proyek dan panduan instalasi
 ```
