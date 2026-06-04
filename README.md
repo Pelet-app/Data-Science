@@ -18,8 +18,8 @@
 8. [A/B Testing](#8-ab-testing)
 9. [Laporan Teknis](#9-laporan-teknis)
 10. [Data Dictionary](#10-data-dictionary)
-11. [Struktur Proyek](#10-struktur-proyek)
-12. [Cara Menjalankan](#11-cara-menjalankan)
+11. [Struktur Proyek](#11-struktur-proyek)
+12. [Cara Menjalankan](#12-cara-menjalankan)
 
 ---
 
