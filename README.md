@@ -349,8 +349,8 @@ Data-Science/
 │   ├── datawrangling_jobstreet.ipynb       # Pembersihan data lowongan dari Jobstreet
 │   └── datawrangling_skkni.ipynb           # Pembersihan datastandar kompetensi SKKNI
 │
-├── Laporan.pdf		 		                      # Berisi penjelasan analisis
-├──	Data Dictionary.xlsx 		                # Berisi penjelasan dataset yang digunakan untuk tahap modeling
+├── Laporan.pdf		 		                  # Berisi penjelasan analisis
+├──	Data Dictionary.xlsx 		            # Berisi penjelasan dataset yang digunakan untuk tahap modeling
 ├── requirements.txt                        # Daftar dependensi library Python proyek 
 └── README.md                               # Dokumentasi ringkas mengenai proyek dan panduan instalasi
 ```
